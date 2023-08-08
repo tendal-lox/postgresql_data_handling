@@ -1,37 +1,34 @@
-const RequestHandler = require('./axiosRequestHandler')
-const {insertRecordMethod, findAllRecordMethod, findRecordByName, insertRecordUsersAddress} = require('./dataBase')
-const async = require('async')
+const axios = require('axios')
 
-exports.axiosRequestFunction = async (req, res) => {
-    const allUsers = await RequestHandler(res)
-    const allRec = await findAllRecordMethod()
+axios.interceptors.request.use(config => {
+    config.timeout = 800
+    return config
+}, error => {
+    return Promise.reject(error)
+})
 
-    async.each(allUsers, async (eachObj) => {
-        try {
-            if (allRec.users_profile.rows.length === 0 || allRec.users_address.rows.length === 0 ) {
-                await insertRecordMethod(eachObj.id, eachObj.name, eachObj.username, eachObj.email)
+axios.interceptors.response.use(response => {
+    return response.data
+}, async error => {
+    console.log('request sent')
+    return await axios({
+        method: 'get',
+        url: 'https://jsonplaceholder.typicode.com/users',
+        responseType: 'stream'
+    })
+    // return Promise.reject(error)
+    }
+)
 
-                const funcLevel1 = await insertRecordUsersAddress(eachObj.address.street, eachObj.address.city, eachObj.id)
-                await funcLevel1(eachObj.address.geo.lat, eachObj.address.geo.lng)
+async function axiosHelpFunction(res) {
 
-                return
-            }
-            const data = await findRecordByName(eachObj.name)
-            const recordName = data.rows[0].name
-
-            if (recordName !== eachObj.name) {
-                await insertRecordMethod(eachObj.name, eachObj.username, eachObj.id, eachObj.email)
-            } else {
-                console.log(`record exist for username: ${eachObj.username} and profile_id:${eachObj.id}`)
-            }
-        } catch (err) {
-            console.error('Something went wrong with this recored which is stored in database', err)
-        }
+    const result = await axios({
+        method: 'get',
+        url: 'https://jsonplaceholder.typicode.com/users',
+        responseType: 'stream'
     })
 }
 
-exports.getAllUsersFunction = async (req, res) => {
-    const listOfMembers = await findAllRecordMethod()
-    console.log('list of all members successfully received')
-    res.send(listOfMembers.allData.rows)
+exports.axiosRequestFunction = async (req, res) => {
+    axiosHelpFunction(res)
 }
