@@ -26,19 +26,6 @@ The default timeout for each request is 1000 milliseconds. If no response is rec
 
 This operation is done up to 5 times. The interval between each failed request is 2000 milliseconds. After 5 times it will reject response promise.
 
-### TECH
-
-- [Node.js] - evented I/O for the backend
-- [Express] - fast node.js network app framework
-- [PostgreSQL] - SQL dataBase
-- [Axios] - great UI boilerplate for modern web apps
-- [Async.js]
-- dotenv
-- Nodemon
-
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
-
 ## Install Guide
 This module requires [Node.js](https://nodejs.org/) v16+ to run.
 At first, you have to implement dataBase tables.
@@ -48,6 +35,16 @@ git clone https://github.com/tendal-lox/postgresql_data_handling.git
 cd postgresql_data_handling
 npm start
 ```
+
+### TECH
+
+- [Node.js] - evented I/O for the backend
+- [Express] - fast node.js network app framework
+- [PostgreSQL] - SQL dataBase
+- [Axios] - great UI boilerplate for modern web apps
+- [Async.js]
+- dotenv
+- Nodemon
 
 ## License
 ISC
