@@ -33,6 +33,7 @@ At first, you have to implement dataBase tables.
 ```sh
 git clone https://github.com/tendal-lox/postgresql_data_handling.git
 cd postgresql_data_handling
+npm i
 npm start
 ```
 
