@@ -25,7 +25,7 @@ async function axiosHelpFunction(res) {
             method: 'get',
             url: 'https://jsonplaceholder.typicode.com/users',
             // responseType: 'stream',
-            timeout: 2000
+            timeout: 1000
         })
         console.log('response received')
         // result.pipe(res)
