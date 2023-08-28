@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {axiosRequestFunction, getAllUsersFunction} = require('../services/controllerFunction')
+const { axiosRequestFunction, getAllUsersFunction } = require('../services/controllerFunction')
 
 router.get('/', axiosRequestFunction)
 
